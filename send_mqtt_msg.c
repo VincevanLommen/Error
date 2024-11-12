@@ -2,10 +2,10 @@
 #include <string.h>
 #include <MQTTClient.h>
 
-#define ADDRESS     "tcp://192.168.1.23:1883"       // MQTT broker URL
-#define CLIENTID    "RaspberryPiClient"             // Unique client ID
+#define ADDRESS     "tcp://192.168.0.108:1883"       // MQTT broker URL
+#define CLIENTID    "Flandrien"             // Unique client ID
 #define TOPIC       "test/topic"                    // MQTT topic
-#define PAYLOAD     "Hello from Raspberry Pi!"      // Message to send
+#define PAYLOAD     "Hello from Raspberry Pi08!"      // Message to send
 #define QOS         1                               // Quality of Service level
 #define TIMEOUT     10000L                          // Timeout in milliseconds
 
