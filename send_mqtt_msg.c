@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "MQTTClient.h"
+#include <time.h>
 
 #define ADDRESS     "tcp://192.168.0.108:1883"  // Vervang dit door het adres van je broker
 #define CLIENTID    "Flandrien"
@@ -12,9 +13,11 @@
 #define ERR_CODE_LEN    8
 #define ERR_TEXT_LEN    200
 
+char Naar_Broker[256]; // Bericht dat wordt doorgestuurd
+
 struct tbl {
-    char ErrCode[ERR_CODE_LEN];
-    char Err_Text[ERR_TEXT_LEN];
+    char ErrCode[ERR_CODE_LEN + 1]; // +1 voor null terminator
+    char Err_Text[ERR_TEXT_LEN + 1]; // +1 voor null terminator
     struct tbl *next;
 };
 
@@ -29,7 +32,9 @@ int insert_first(const char *err_code, const char *err_text) {
         return -1;
     }
     strncpy(new_node->ErrCode, err_code, ERR_CODE_LEN);
+    new_node->ErrCode[ERR_CODE_LEN] = '\0'; // Zorg ervoor dat de string null-terminated is
     strncpy(new_node->Err_Text, err_text, ERR_TEXT_LEN);
+    new_node->Err_Text[ERR_TEXT_LEN] = '\0'; // Zorg ervoor dat de string null-terminated is
     new_node->next = head;
     head = new_node;
     return 0;
@@ -42,7 +47,9 @@ int insert_next(struct tbl *list, const char *err_code, const char *err_text) {
         return -1;
     }
     strncpy(new_node->ErrCode, err_code, ERR_CODE_LEN);
+    new_node->ErrCode[ERR_CODE_LEN] = '\0'; // Zorg ervoor dat de string null-terminated is
     strncpy(new_node->Err_Text, err_text, ERR_TEXT_LEN);
+    new_node->Err_Text[ERR_TEXT_LEN] = '\0'; // Zorg ervoor dat de string null-terminated is
     new_node->next = list->next;
     list->next = new_node;
     return 0;
@@ -75,43 +82,66 @@ int search_list(struct tbl **list, const char *zoekterm) {
     return 0;
 }
 
+// Functie om de huidige tijd als string te krijgen
+void get_current_time_str(char* buffer, size_t buffer_size) {
+    time_t raw_time;
+    struct tm* time_info;
+
+    time(&raw_time);
+    time_info = localtime(&raw_time);
+
+    strftime(buffer, buffer_size, "%Y-%m-%d %H:%M:%S", time_info);
+}
+
 // Callback voor ontvangen berichten
 int messageArrivedHandler(void* context, char* topicName, int topicLen, MQTTClient_message* message) {
-    printf("Message arrived on topic: %s\n", topicName);
-
-    // Zorg ervoor dat de payload correct wordt gekopieerd en geprint
     char* payload_buffer = (char*)malloc(message->payloadlen + 1);
     if (payload_buffer) {
         memcpy(payload_buffer, message->payload, message->payloadlen);
-        payload_buffer[message->payloadlen] = '\0';  // Voeg de null-terminator toe
-        printf("Message: %s\n", payload_buffer);
+        payload_buffer[message->payloadlen] = '\0'; 
 
-        // Extract the error code (3rd value) from the payload
-        char *token = strtok(payload_buffer, ";");  // First value
-        token = strtok(NULL, ";");  // Second value
-        token = strtok(NULL, ";");  // Third value (error code)
-        
-        if (token) {
+        char *token = strtok(payload_buffer, ";"); 
+        token = strtok(NULL, ";"); 
+        char *err_code = strtok(NULL, ";"); 
+        char *extra_text = strtok(NULL, ";");  
+
+        if (err_code) {
             // Search for the error code in the list
             struct tbl *found = NULL;
-            if (search_list(&found, token)) {
-                printf("Error Code: %s, Error Text: %s\n", token, found->Err_Text);
+            if (search_list(&found, err_code)) {
+                char time_str[20];
+                get_current_time_str(time_str, sizeof(time_str));
+
+                if (extra_text && strstr(found->Err_Text, "%s")) {
+                    // Replace %s met extra waarden
+                    char formatted_err_text[ERR_TEXT_LEN];
+                    snprintf(formatted_err_text, ERR_TEXT_LEN, found->Err_Text, extra_text);
+
+                    // \n weghalen als deze er is
+                    formatted_err_text[strcspn(formatted_err_text, "\n")] = '\0';
+
+                    snprintf(Naar_Broker, sizeof(Naar_Broker), "%s;%s;%s;%s", payload_buffer, formatted_err_text, time_str);
+                    printf("%s\n", Naar_Broker);
+                } else {
+                    // Idem
+                    found->Err_Text[strcspn(found->Err_Text, "\n")] = '\0';
+
+                    snprintf(Naar_Broker, sizeof(Naar_Broker), "%s;%s;%s", payload_buffer, found->Err_Text, time_str);
+                    printf("%s\n", Naar_Broker);
+                }
             } else {
-                printf("Error Code: %s not found in the list.\n", token);
+                snprintf(Naar_Broker, sizeof(Naar_Broker), "Error Code: %s not found in the list.", err_code);
+                printf("%s\n", Naar_Broker);
             }
-        } else {
-            printf("Error: Could not extract error code from message.\n");
         }
 
         free(payload_buffer);
-    } else {
-        printf("Memory allocation error\n");
     }
 
     MQTTClient_freeMessage(&message);
     MQTTClient_free(topicName);
 
-    return 1;  // Zorg ervoor dat de juiste waarde wordt geretourneerd
+    return 1;
 }
 
 int main(int argc, char *argv[]) {
