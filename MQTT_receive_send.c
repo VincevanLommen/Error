@@ -1,22 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "MQTTClient.h"
 #include <time.h>
+#include "MQTTClient.h"
 
-#define ADDRESS     "tcp://192.168.0.108:1883"  // Vervang dit door het adres van je broker
-#define CLIENTID    "Flandrien"
-#define SUB_TOPIC   "vizo/ERROR_IN"
-#define PUB_TOPIC   "vizo/ERROR_SEND"
+#define ADDRESS     "tcp://192.168.0.108:1883" // !! IP-address:Port-ID
 #define QOS         1
+#define CLIENTID    "FLANDRIEN"
+#define SUB_TOPIC   "vizo/ERROR_REC"
+#define PUB_TOPIC   "vizo/ERROR_SEND"
+#define TOPIC_LEN   120
 #define TIMEOUT     500L
-
-#define ERR_CODE_LEN    8
-#define ERR_TEXT_LEN    200
 
 #define ERR_OUT_LEN 1024
 
-char Naar_Broker[256]; // Bericht dat wordt doorgestuurd
+
+
+
+
+
 
 struct tbl {
     char ErrCode[ERR_CODE_LEN + 1]; // +1 voor null terminator
@@ -26,53 +28,6 @@ struct tbl {
 
 struct tbl *head = NULL;
 
-volatile MQTTClient_deliveryToken delivered_token;
-
-volatile MQTTClient_deliveryToken deliveredtoken;
-
-// This function is called upon when a message is successfully delivered through mqtt
-void delivered(void *context, MQTTClient_deliveryToken dt) {
-    
-    printf( "-----------------------------------------------\n" );    
-    deliveredtoken = dt;
-}
-
-
-
-
-// This function is called upon when an incoming message from mqtt is arrived
-int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *message) {
-    char *error_in = message->payload;
-    char  error_out[ ERR_OUT_LEN ] = "";
-    
-    // print incoming message
-    printf( "msgarrvd: error_in: <%s>\n", error_in );   
-    
-    // format error out msg
-    sprintf( error_out, "%s + Some additional text here", error_in );
-    printf( "msgarrvd: error_out: <%s>\n", error_out );   
-
-    // Create a new client to publish the error_out message
-    MQTTClient client = (MQTTClient)context;
-    MQTTClient_message pubmsg = MQTTClient_message_initializer;
-    MQTTClient_deliveryToken token;
-
-    pubmsg.payload = error_out;
-    pubmsg.payloadlen = strlen( error_out );
-    pubmsg.qos = QOS;
-    pubmsg.retained = 0;
-
-    //Publish the error_out message on PUB TOPIC 
-    MQTTClient_publishMessage(client, PUB_TOPIC, &pubmsg, &token);
-    
-    // Validate that message has been successfully delivered
-    int rc = MQTTClient_waitForCompletion(client, token, TIMEOUT );
-    // Close the outgoing message queue
-    MQTTClient_freeMessage(&message);
-    MQTTClient_free(topicName);
-    
-    return 1;
-}
 
 
 
@@ -145,57 +100,63 @@ void get_current_time_str(char* buffer, size_t buffer_size) {
     strftime(buffer, buffer_size, "%Y-%m-%d %H:%M:%S", time_info);
 }
 
-// Callback voor ontvangen berichten
-int messageArrivedHandler(void* context, char* topicName, int topicLen, MQTTClient_message* message) {
-    char* payload_buffer = (char*)malloc(message->payloadlen + 1);
-    if (payload_buffer) {
-        memcpy(payload_buffer, message->payload, message->payloadlen);
-        payload_buffer[message->payloadlen] = '\0'; 
 
-        char *token = strtok(payload_buffer, ";"); 
-        token = strtok(NULL, ";"); 
-        char *err_code = strtok(NULL, ";"); 
-        char *extra_text = strtok(NULL, ";");  
 
-        if (err_code) {
-            // Search for the error code in the list
-            struct tbl *found = NULL;
-            if (search_list(&found, err_code)) {
-                char time_str[20];
-                get_current_time_str(time_str, sizeof(time_str));
 
-                if (extra_text && strstr(found->Err_Text, "%s")) {
-                    // Replace %s met extra waarden
-                    char formatted_err_text[ERR_TEXT_LEN];
-                    snprintf(formatted_err_text, ERR_TEXT_LEN, found->Err_Text, extra_text);
 
-                    // \n weghalen als deze er is
-                    formatted_err_text[strcspn(formatted_err_text, "\n")] = '\0';
 
-                    snprintf(Naar_Broker, sizeof(Naar_Broker), "%s;%s;%s;%s", payload_buffer, formatted_err_text, time_str);
-                    printf("%s\n", Naar_Broker);
-                } else {
-                    // Idem
-                    found->Err_Text[strcspn(found->Err_Text, "\n")] = '\0';
 
-                    snprintf(Naar_Broker, sizeof(Naar_Broker), "%s;%s;%s", payload_buffer, found->Err_Text, time_str);
-                    printf("%s\n", Naar_Broker);
-                }
-            } else {
-                snprintf(Naar_Broker, sizeof(Naar_Broker), "Error Code: %s not found in the list.", err_code);
-                printf("%s\n", Naar_Broker);
-            }
-        }
 
-        free(payload_buffer);
-    }
 
-    MQTTClient_freeMessage(&message);
-    MQTTClient_free(topicName);
 
-    return 1;
+// this mqtt token is set as global var to ease up this program
+volatile MQTTClient_deliveryToken deliveredtoken;
+
+// This function is called upon when a message is successfully delivered through mqtt
+void delivered(void *context, MQTTClient_deliveryToken dt) {
+    
+    printf("Message with token value %d delivery confirmed\n", dt);
+    printf( "-----------------------------------------------\n" );    
+    deliveredtoken = dt;
 }
 
+// This function is called upon when an incoming message from mqtt is arrived
+int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *message) {
+    char *error_in = message->payload;
+    char  error_out[ ERR_OUT_LEN ] = "";
+    
+    // print incoming message
+    printf( "msgarrvd: error_in: <%s>\n", error_in );   
+    
+    // format error out msg
+    sprintf( error_out, "%s + Some additional text here", error_in );
+    printf( "msgarrvd: error_out: <%s>\n", error_out );   
+
+    // Create a new client to publish the error_out message
+    MQTTClient client = (MQTTClient)context;
+    MQTTClient_message pubmsg = MQTTClient_message_initializer;
+    MQTTClient_deliveryToken token;
+
+    pubmsg.payload = error_out;
+    pubmsg.payloadlen = strlen( error_out );
+    pubmsg.qos = QOS;
+    pubmsg.retained = 0;
+
+    //Publish the error_out message on PUB TOPIC 
+    MQTTClient_publishMessage(client, PUB_TOPIC, &pubmsg, &token);
+    printf("Publishing to topic %s\n", PUB_TOPIC);
+    
+    // Validate that message has been successfully delivered
+    int rc = MQTTClient_waitForCompletion(client, token, TIMEOUT );
+    printf("Message with delivery token %d delivered, rc=%d\n", token, rc);
+    printf( "Msg out:\t<%s>\n", error_out );
+
+    // Close the outgoing message queue
+    MQTTClient_freeMessage(&message);
+    MQTTClient_free(topicName);
+    
+    return 1;
+}
 
 // This function is called upon when the connection to the mqtt-broker is lost
 void connlost(void *context, char *cause) {
@@ -204,10 +165,8 @@ void connlost(void *context, char *cause) {
 }
 
 
-
-
-int main(int argc, char *argv[]) {
-    // MQTT Client setup
+int main() {
+   // Open MQTT client for listening
     MQTTClient client;
     MQTTClient_connectOptions conn_opts = MQTTClient_connectOptions_initializer;
     int rc;
@@ -216,17 +175,26 @@ int main(int argc, char *argv[]) {
     conn_opts.keepAliveInterval = 20;
     conn_opts.cleansession = 1;
 
-    // Set callback to handle incoming messages
-    MQTTClient_setCallbacks(client, NULL, NULL, messageArrivedHandler, NULL);
+    // Define the correct call back functions when messages arrive
+    MQTTClient_setCallbacks(client, client, connlost, msgarrvd, delivered);
 
-    // Connect to the broker
     if ((rc = MQTTClient_connect(client, &conn_opts)) != MQTTCLIENT_SUCCESS) {
         printf("Failed to connect, return code %d\n", rc);
         exit(EXIT_FAILURE);
     }
-    printf("Connected to the broker.\n");
+
     printf("Subscribing to topic %s for client %s using QoS%d\n\n", SUB_TOPIC, CLIENTID, QOS);
     MQTTClient_subscribe(client, SUB_TOPIC, QOS);
+
+    // Keep the program running to continue receiving and publishing messages
+    for(;;) {
+        ;
+    }
+
+    MQTTClient_disconnect(client, 10000);
+    MQTTClient_destroy(&client);
+    return rc;
+
 
     // Read error messages from file and insert into list
     const char *filename = (argc == 2) ? argv[1] : "Error_msg_EN.txt";
@@ -235,8 +203,6 @@ int main(int argc, char *argv[]) {
         printf("Kan het bestand niet openen: %s\n", filename);
         return 1;
     }
-
-    MQTTClient_setCallbacks(client, client, connlost, msgarrvd, delivered);
 
     char line[256];
     int line_number = 0;
@@ -269,16 +235,4 @@ int main(int argc, char *argv[]) {
 
     // Print the list
     print_list();
-
-    // Keep the program running to continue receiving and publishing messages
-    while (1) {
-        // Infinite loop to keep receiving messages
-        // Could add some other conditions to exit if needed
-    }
-
-    // Disconnect and clean up
-    MQTTClient_disconnect(client, 10000);
-    MQTTClient_destroy(&client);
-
-    return rc;
 }
