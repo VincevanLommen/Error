@@ -12,9 +12,12 @@
 #define TIMEOUT     500L
 
 #define ERR_CODE_LEN    8
-#define ERR_TEXT_LEN    200
+#define ERR_TEXT_LEN    300
 
-#define ERR_OUT_LEN 1024
+#define ERR_OUT_LEN 1023
+
+void get_current_time_str(char* buffer, size_t buffer_size);
+
 
 char Naar_Broker[256]; // Bericht dat wordt doorgestuurd
 
@@ -38,41 +41,66 @@ void delivered(void *context, MQTTClient_deliveryToken dt) {
 }
 
 
-
-
-// This function is called upon when an incoming message from mqtt is arrived
 int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *message) {
-    char *error_in = message->payload;
-    char  error_out[ ERR_OUT_LEN ] = "";
-    
-    // print incoming message
-    printf( "msgarrvd: error_in: <%s>\n", error_in );   
-    
-    // format error out msg
-    sprintf( error_out, "%s + Some additional text here", error_in );
-    printf( "msgarrvd: error_out: <%s>\n", error_out );   
+    char *error_in = (char *)message->payload;
+    char error_out[ERR_OUT_LEN] = "";
+    char current_time[20] = ""; // Buffer to hold the current time
 
-    // Create a new client to publish the error_out message
-    MQTTClient client = (MQTTClient)context;
-    MQTTClient_message pubmsg = MQTTClient_message_initializer;
-    MQTTClient_deliveryToken token;
+    // Get the current time
+    get_current_time_str(current_time, sizeof(current_time));
 
-    pubmsg.payload = error_out;
-    pubmsg.payloadlen = strlen( error_out );
-    pubmsg.qos = QOS;
-    pubmsg.retained = 0;
+    // Split the incoming message
+    char *first_value = strtok(error_in, ";");
+    char *second_value = strtok(NULL, ";"); 
+    char *err_code = strtok(NULL, ";"); 
+    char *extra_text = strtok(NULL, ";");  
 
-    //Publish the error_out message on PUB TOPIC 
-    MQTTClient_publishMessage(client, PUB_TOPIC, &pubmsg, &token);
-    
-    // Validate that message has been successfully delivered
-    int rc = MQTTClient_waitForCompletion(client, token, TIMEOUT );
-    // Close the outgoing message queue
+    if (err_code) {
+        // Search for the error code in the list
+        struct tbl *found = NULL;
+        if (search_list(&found, err_code)) {
+            // If an extra text is provided and the error text contains %s, replace %s with extra text
+            if (extra_text && strstr(found->Err_Text, "%s")) {
+                char formatted_err_text[ERR_TEXT_LEN];
+                snprintf(formatted_err_text, ERR_TEXT_LEN, found->Err_Text, extra_text);
+                snprintf(error_out, ERR_OUT_LEN, "%s;%s;%s;%s;%s;%s", current_time, first_value, second_value, err_code, formatted_err_text, extra_text);
+            } else {
+                snprintf(error_out, ERR_OUT_LEN, "%s;%s;%s;%s;%s;%s", current_time, first_value, second_value, err_code, found->Err_Text);
+            }
+            // Remove newline if present
+            error_out[strcspn(error_out, "\n")] = '\0';
+
+            printf("msgarrvd: error_out: <%s>\n", error_out);
+
+            // Create a new client to publish the error_out message
+            MQTTClient client = (MQTTClient)context;
+            MQTTClient_message pubmsg = MQTTClient_message_initializer;
+            MQTTClient_deliveryToken token;
+
+            pubmsg.payload = error_out;
+            pubmsg.payloadlen = strlen(error_out);
+            pubmsg.qos = QOS;
+            pubmsg.retained = 0;
+
+            // Publish the error_out message on PUB TOPIC
+            MQTTClient_publishMessage(client, PUB_TOPIC, &pubmsg, &token);
+
+            // Validate that message has been successfully delivered
+            int rc = MQTTClient_waitForCompletion(client, token, TIMEOUT);
+        } else {
+            snprintf(error_out, ERR_OUT_LEN, "Error Code: %s not found in the list.", err_code);
+            printf("%s\n", error_out);
+        }
+    }
+
     MQTTClient_freeMessage(&message);
     MQTTClient_free(topicName);
-    
+
     return 1;
 }
+
+
+
 
 
 
@@ -134,7 +162,6 @@ int search_list(struct tbl **list, const char *zoekterm) {
     return 0;
 }
 
-// Functie om de huidige tijd als string te krijgen
 void get_current_time_str(char* buffer, size_t buffer_size) {
     time_t raw_time;
     struct tm* time_info;
@@ -144,6 +171,7 @@ void get_current_time_str(char* buffer, size_t buffer_size) {
 
     strftime(buffer, buffer_size, "%Y-%m-%d %H:%M:%S", time_info);
 }
+
 
 // Callback voor ontvangen berichten
 int messageArrivedHandler(void* context, char* topicName, int topicLen, MQTTClient_message* message) {

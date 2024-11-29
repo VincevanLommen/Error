@@ -2,7 +2,7 @@
 
 #Declare the variables
 HOST=192.168.0.108
-TOPIC=vizo/err
+TOPIC=vizo/ERROR_IN
 SLEEP=1
 PROG_NAME=DUVEL
 SEV_CODE=1
