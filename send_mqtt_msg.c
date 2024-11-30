@@ -50,8 +50,8 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *m
     get_current_time_str(current_time, sizeof(current_time));
 
     // Split the incoming message
-    char *first_value = strtok(error_in, ";");
-    char *second_value = strtok(NULL, ";"); 
+    char *sevCode = strtok(error_in, ";");
+    char *programma = strtok(NULL, ";"); 
     char *err_code = strtok(NULL, ";"); 
     char *extra_text = strtok(NULL, ";");  
 
@@ -63,9 +63,9 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *m
             if (extra_text && strstr(found->Err_Text, "%s")) {
                 char formatted_err_text[ERR_TEXT_LEN];
                 snprintf(formatted_err_text, ERR_TEXT_LEN, found->Err_Text, extra_text);
-                snprintf(error_out, ERR_OUT_LEN, "%s;%s;%s;%s;%s;%s", current_time, first_value, second_value, err_code, formatted_err_text, extra_text);
+                snprintf(error_out, ERR_OUT_LEN, "%s;%s;%s;%s;%s;%s", current_time, sevCode, programma, err_code, formatted_err_text, extra_text);
             } else {
-                snprintf(error_out, ERR_OUT_LEN, "%s;%s;%s;%s;%s;%s", current_time, first_value, second_value, err_code, found->Err_Text);
+                snprintf(error_out, ERR_OUT_LEN, "%s;%s;%s;%s;%s;%s", current_time, sevCode, programma, err_code, found->Err_Text);
             }
             // Remove newline if present
             error_out[strcspn(error_out, "\n")] = '\0';
@@ -98,6 +98,7 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *m
 
     return 1;
 }
+
 
 
 
