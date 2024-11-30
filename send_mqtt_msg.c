@@ -16,7 +16,9 @@
 
 #define ERR_OUT_LEN 1023
 
-void get_current_time_str(char* buffer, size_t buffer_size);
+
+
+
 
 
 char Naar_Broker[256]; // Bericht dat wordt doorgestuurd
@@ -32,6 +34,10 @@ struct tbl *head = NULL;
 volatile MQTTClient_deliveryToken delivered_token;
 
 volatile MQTTClient_deliveryToken deliveredtoken;
+
+
+void get_current_time_str(char* buffer, size_t buffer_size);
+int search_list(struct tbl **list, const char *zoekterm);
 
 // This function is called upon when a message is successfully delivered through mqtt
 void delivered(void *context, MQTTClient_deliveryToken dt) {
@@ -50,10 +56,18 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *m
     get_current_time_str(current_time, sizeof(current_time));
 
     // Split the incoming message
-    char *sevCode = strtok(error_in, ";");
-    char *programma = strtok(NULL, ";"); 
-    char *err_code = strtok(NULL, ";"); 
-    char *extra_text = strtok(NULL, ";");  
+    char *sevCodeStr = strtok(error_in, ";");
+    char *programma = strtok(NULL, ";");
+    char *err_code = strtok(NULL, ";");
+    char *extra_text = strtok(NULL, ";");
+
+    // Als de sev code hoger is dan 4 zal deze 4 worden
+    int sevCode = atoi(sevCodeStr);
+    if (sevCode > 4) {
+        sevCode = 4;
+    }
+    char sevCodeBuf[10];
+    snprintf(sevCodeBuf, sizeof(sevCodeBuf), "%d", sevCode);
 
     if (err_code) {
         // Search for the error code in the list
@@ -63,9 +77,9 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *m
             if (extra_text && strstr(found->Err_Text, "%s")) {
                 char formatted_err_text[ERR_TEXT_LEN];
                 snprintf(formatted_err_text, ERR_TEXT_LEN, found->Err_Text, extra_text);
-                snprintf(error_out, ERR_OUT_LEN, "%s;%s;%s;%s;%s;%s", current_time, sevCode, programma, err_code, formatted_err_text, extra_text);
+                snprintf(error_out, ERR_OUT_LEN, "%s;%s;%s;%s;%s;%s", current_time, sevCodeBuf, programma, err_code, formatted_err_text, extra_text);
             } else {
-                snprintf(error_out, ERR_OUT_LEN, "%s;%s;%s;%s;%s;%s", current_time, sevCode, programma, err_code, found->Err_Text);
+                snprintf(error_out, ERR_OUT_LEN, "%s;%s;%s;%s;%s;%s", current_time, sevCodeBuf, programma, err_code, found->Err_Text);
             }
             // Remove newline if present
             error_out[strcspn(error_out, "\n")] = '\0';
@@ -98,7 +112,6 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *m
 
     return 1;
 }
-
 
 
 
