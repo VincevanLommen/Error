@@ -17,9 +17,18 @@
 #define ERR_OUT_LEN 1023
 
 
-
-
-
+//Functie om log file aan te maken of in te schrijven
+void log_to_file(const char *message)
+        {
+     FILE *file = fopen("logs.txt", "a");
+      if (file == NULL) 
+            { 
+            perror("Error opening log file");
+            return;
+            } 
+        fprintf(file, "%s\n", message);
+        fclose(file);
+        }
 
 char Naar_Broker[256]; // Bericht dat wordt doorgestuurd
 
@@ -81,6 +90,10 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *m
             } else {
                 snprintf(error_out, ERR_OUT_LEN, "%s;%s;%s;%s;%s;%s", current_time, sevCodeBuf, programma, err_code, found->Err_Text);
             }
+
+            log_to_file(error_out);//functie oproepen om in de file te schrijven
+
+            
             // Remove newline if present
             error_out[strcspn(error_out, "\n")] = '\0';
 
