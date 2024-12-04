@@ -12,3 +12,459 @@
 ;TEST.txt
 2024-12-03 13:25:00;4;Samsung;FSY0003;Could not open the file TEST.txt for appending
 ;TEST.txt
+2024-12-04 09:21:24;4;Samsung;FSY0001;Could not open the file ü¶ß for reading
+;ü¶ß
+2024-12-04 09:28:49;3;DUVEL;GEN0001;Unknown error occurred.
+;
+2024-12-04 09:28:51;3;DUVEL;GEN0002;Operation failed unexpectedly.
+;
+2024-12-04 09:28:52;3;DUVEL;GEN0003;Invalid input provided.
+;
+2024-12-04 09:28:53;3;DUVEL;GEN0004;Required field is missing.
+;
+2024-12-04 09:28:54;3;DUVEL;GEN0005;Action timed out.
+;
+2024-12-04 09:28:55;3;DUVEL;AUT1001;Invalid username or password.
+;
+2024-12-04 09:28:56;3;DUVEL;AUT1002;User account is locked.
+;
+2024-12-04 09:28:57;3;DUVEL;AUT1003;Token has expired.
+;
+2024-12-04 09:28:58;3;DUVEL;AUT1004;Insufficient permissions.
+;
+2024-12-04 09:28:59;3;DUVEL;AUT1005;Failed to authenticate user.
+;w´Bﬁ:b,
+2024-12-04 09:29:00;3;DUVEL;DBE2001;Database connection failed.
+;zo/ERROR_IN
+2024-12-04 09:29:01;3;DUVEL;DBE2002;Data retrieval error.
+;zo/ERROR_IN
+2024-12-04 09:29:02;3;DUVEL;DBE2003;Data insertion error.
+;DUVEL
+2024-12-04 09:29:03;3;DUVEL;DBE2004;Data update error.
+;DUVEL
+2024-12-04 09:29:04;3;DUVEL;DBE2005;Data deletion error.
+;
+2024-12-04 09:29:05;3;DUVEL;NET3001;Network connection lost.
+;
+2024-12-04 09:29:06;3;DUVEL;NET3002;Unable to resolve hostname.
+;
+2024-12-04 09:29:07;3;DUVEL;NET3003;Timeout while connecting to server.
+;
+2024-12-04 09:29:08;3;DUVEL;NET3004;Network protocol mismatch.
+;
+2024-12-04 09:29:09;3;DUVEL;NET3005;Insufficient bandwidth.
+;
+2024-12-04 09:29:10;3;DUVEL;FSE4001;File not found.
+;w´Bﬁ:b
+2024-12-04 09:29:11;3;DUVEL;FSE4002;Unable to read file.
+;
+2024-12-04 09:29:12;3;DUVEL;FSE4003;Unable to write to file.
+;
+2024-12-04 09:29:13;3;DUVEL;FSE4004;Disk space is full.
+;
+2024-12-04 09:29:14;3;DUVEL;FSE4005;File path is invalid.
+;
+2024-12-04 09:29:15;3;DUVEL;IOE5001;Input buffer overflow.
+;
+2024-12-04 09:29:16;3;DUVEL;IOE5002;Output buffer overflow.
+;
+2024-12-04 09:29:17;3;DUVEL;IOE5003;I/O device not responding.
+;
+2024-12-04 09:29:18;3;DUVEL;IOE5004;Failed to read from device.
+;
+2024-12-04 09:29:19;3;DUVEL;IOE5005;Failed to write to device.
+;
+2024-12-04 09:29:20;3;DUVEL;CFG6001;Configuration file is missing.
+;
+2024-12-04 09:29:21;3;DUVEL;CFG6002;Invalid configuration format.
+;
+2024-12-04 09:29:22;3;DUVEL;CFG6003;Configuration key not found.
+;
+2024-12-04 09:29:23;3;DUVEL;CFG6004;Failed to load configuration.
+;
+2024-12-04 09:29:24;3;DUVEL;CFG6005;Configuration setting is deprecated.
+;
+2024-12-04 09:29:25;3;DUVEL;SYN7001;Syntax error in command.
+;setting is deprecated.
+2024-12-04 09:29:26;3;DUVEL;SYN7002;Unexpected token encountered.
+;àààààà
+2024-12-04 09:29:27;3;DUVEL;SYN7003;Missing semicolon.
+;àààààà
+2024-12-04 09:29:28;3;DUVEL;SYN7004;Unmatched parentheses.
+;àààààà
+2024-12-04 09:29:29;3;DUVEL;SYN7005;Invalid character in input.
+;àààààà
+2024-12-04 09:29:30;3;DUVEL;PER8001;Permission denied.
+;àààààà
+2024-12-04 09:29:31;3;DUVEL;GEN0001;Unknown error occurred.
+;
+2024-12-04 09:29:31;3;DUVEL;PER8002;Read-only file system.
+;
+2024-12-04 09:29:32;3;DUVEL;GEN0002;Operation failed unexpectedly.
+;
+2024-12-04 09:29:32;3;DUVEL;PER8003;Insufficient user privileges.
+;zo/ERROR_IN
+2024-12-04 09:29:33;3;DUVEL;GEN0003;Invalid input provided.
+;zo/ERROR_IN
+2024-12-04 09:29:33;3;DUVEL;PER8004;Admin access required.
+;
+2024-12-04 09:29:34;3;DUVEL;GEN0004;Required field is missing.
+;
+2024-12-04 09:29:34;3;DUVEL;PER8005;Operation restricted by policy.
+;w´Bﬁ:b–
+2024-12-04 09:29:35;3;DUVEL;GEN0005;Action timed out.
+;w´Bﬁ:b†
+2024-12-04 09:29:35;3;DUVEL;RES9001;Insufficient memory available.
+;
+2024-12-04 09:29:36;3;DUVEL;AUT1001;Invalid username or password.
+;
+2024-12-04 09:29:36;3;DUVEL;RES9002;Resource limit exceeded.
+;
+2024-12-04 09:29:37;3;DUVEL;AUT1002;User account is locked.
+;DUVEL
+2024-12-04 09:29:37;3;DUVEL;RES9003;CPU quota reached.
+;DUVEL
+2024-12-04 09:29:38;3;DUVEL;AUT1003;Token has expired.
+;
+2024-12-04 09:29:38;3;DUVEL;RES9004;Too many open files.
+;
+2024-12-04 09:29:39;3;DUVEL;AUT1004;Insufficient permissions.
+;
+2024-12-04 09:29:39;3;DUVEL;RES9005;Resource is locked by another process.
+;
+2024-12-04 09:29:40;3;DUVEL;AUT1005;Failed to authenticate user.
+;
+2024-12-04 09:29:40;3;DUVEL;MEA0027;Incorrect measurement
+;
+2024-12-04 09:29:41;3;DUVEL;DBE2001;Database connection failed.
+;w´Bﬁ:b
+2024-12-04 09:29:41;3;DUVEL;ABC0011;This is a test
+;w´Bﬁ:b
+2024-12-04 09:29:42;3;DUVEL;DBE2002;Data retrieval error.
+;w´Bﬁ:b
+2024-12-04 09:29:42;3;DUVEL;DIV0001;Division by 0 error
+;
+2024-12-04 09:29:43;3;DUVEL;DBE2003;Data insertion error.
+;
+2024-12-04 09:29:43;3;DUVEL;MEM0001;Can not allocatie memory
+;
+2024-12-04 09:29:44;3;DUVEL;DBE2004;Data update error.
+;
+2024-12-04 09:29:44;3;DUVEL;FSY0001;Could not open the file TextFile.txt for reading
+;TextFile.txt
+2024-12-04 09:29:45;3;DUVEL;DBE2005;Data deletion error.
+;p"
+2024-12-04 09:29:45;3;DUVEL;FSY0002;Could not open the file TextFile.txt for writing
+;TextFile.txt
+2024-12-04 09:29:46;3;DUVEL;NET3001;Network connection lost.
+;‡"
+2024-12-04 09:29:46;3;DUVEL;FSY0003;Could not open the file TextFile.txt for appending
+;TextFile.txt
+2024-12-04 09:29:47;3;DUVEL;NET3002;Unable to resolve hostname.
+;
+2024-12-04 09:29:47;3;DUVEL;FSY0004;Could not open the file TextFile.txt
+;TextFile.txt
+2024-12-04 09:29:48;3;DUVEL;NET3003;Timeout while connecting to server.
+;TextFile.txt
+2024-12-04 09:29:48;3;DUVEL;FSY0005;Could not write to the file TextFile.txt
+;TextFile.txt
+2024-12-04 09:29:49;3;DUVEL;NET3004;Network protocol mismatch.
+;–,
+2024-12-04 09:29:49;3;DUVEL;USR0001;User Frank Demonie has no access
+;Frank Demonie
+2024-12-04 09:29:50;3;DUVEL;NET3005;Insufficient bandwidth.
+;p
+2024-12-04 09:29:51;3;DUVEL;FSE4001;File not found.
+;p
+2024-12-04 09:29:52;3;DUVEL;FSE4002;Unable to read file.
+;–
+2024-12-04 09:29:53;3;DUVEL;FSE4003;Unable to write to file.
+;@#
+2024-12-04 09:29:54;3;DUVEL;FSE4004;Disk space is full.
+;®
+2024-12-04 09:29:55;3;DUVEL;FSE4005;File path is invalid.
+;
+2024-12-04 09:29:56;3;DUVEL;IOE5001;Input buffer overflow.
+;ò 
+2024-12-04 09:29:57;3;DUVEL;IOE5002;Output buffer overflow.
+;
+2024-12-04 09:29:58;3;DUVEL;IOE5003;I/O device not responding.
+;
+2024-12-04 09:29:59;3;DUVEL;IOE5004;Failed to read from device.
+;
+2024-12-04 09:30:00;3;DUVEL;IOE5005;Failed to write to device.
+;
+2024-12-04 09:30:01;3;DUVEL;CFG6001;Configuration file is missing.
+;¿
+2024-12-04 09:30:02;3;DUVEL;CFG6002;Invalid configuration format.
+;p
+2024-12-04 09:30:03;3;DUVEL;CFG6003;Configuration key not found.
+;
+2024-12-04 09:30:04;3;DUVEL;CFG6004;Failed to load configuration.
+;
+2024-12-04 09:30:05;3;DUVEL;CFG6005;Configuration setting is deprecated.
+;ÿ
+2024-12-04 09:30:06;3;DUVEL;SYN7001;Syntax error in command.
+;
+2024-12-04 09:30:07;3;DUVEL;SYN7002;Unexpected token encountered.
+;
+2024-12-04 09:30:08;3;DUVEL;SYN7003;Missing semicolon.
+;@
+2024-12-04 09:30:09;3;DUVEL;SYN7004;Unmatched parentheses.
+;@
+2024-12-04 09:30:10;3;DUVEL;SYN7005;Invalid character in input.
+;
+2024-12-04 09:30:11;3;DUVEL;PER8001;Permission denied.
+;
+2024-12-04 09:30:12;3;DUVEL;PER8002;Read-only file system.
+;Ä-
+2024-12-04 09:30:13;3;DUVEL;PER8003;Insufficient user privileges.
+;P,
+2024-12-04 09:30:14;3;DUVEL;PER8004;Admin access required.
+;‡-
+2024-12-04 09:30:15;3;DUVEL;PER8005;Operation restricted by policy.
+;
+2024-12-04 09:30:16;3;DUVEL;RES9001;Insufficient memory available.
+;
+2024-12-04 09:30:17;3;DUVEL;RES9002;Resource limit exceeded.
+;
+2024-12-04 09:30:18;3;DUVEL;RES9003;CPU quota reached.
+;
+2024-12-04 09:30:19;3;DUVEL;RES9004;Too many open files.
+;#
+2024-12-04 09:30:19;3;DUVEL;GEN0001;Unknown error occurred.
+;†
+2024-12-04 09:30:20;3;DUVEL;RES9005;Resource is locked by another process.
+;†
+2024-12-04 09:30:20;3;DUVEL;GEN0002;Operation failed unexpectedly.
+;∞-
+2024-12-04 09:30:21;3;DUVEL;MEA0027;Incorrect measurement
+;Ä-
+2024-12-04 09:30:21;3;DUVEL;GEN0003;Invalid input provided.
+;∞-
+2024-12-04 09:30:22;3;DUVEL;ABC0011;This is a test
+;(
+2024-12-04 09:30:22;3;DUVEL;GEN0004;Required field is missing.
+;
+2024-12-04 09:30:23;3;DUVEL;GEN0001;Unknown error occurred.
+;∏
+2024-12-04 09:30:23;3;DUVEL;DIV0001;Division by 0 error
+;
+2024-12-04 09:30:24;3;DUVEL;GEN0005;Action timed out.
+;ÿ
+2024-12-04 09:30:47;3;DUVEL;IOE5003;I/O device not responding.
+;(null)
+2024-12-04 09:30:47;3;DUVEL;FSE4005;File path is invalid.
+;(null)
+2024-12-04 09:30:47;3;DUVEL;IOE5004;Failed to read from device.
+;(null)
+2024-12-04 09:30:48;3;DUVEL;GEN0001;Unknown error occurred.
+;(null)
+2024-12-04 09:30:48;3;DUVEL;IOE5001;Input buffer overflow.
+;(null)
+2024-12-04 09:30:49;3;DUVEL;IOE5005;Failed to write to device.
+;(null)
+2024-12-04 09:30:49;3;DUVEL;GEN0002;Operation failed unexpectedly.
+;(null)
+2024-12-04 09:30:49;3;DUVEL;IOE5002;Output buffer overflow.
+;(null)
+2024-12-04 09:30:50;3;DUVEL;CFG6001;Configuration file is missing.
+;(null)
+2024-12-04 09:30:50;3;DUVEL;GEN0003;Invalid input provided.
+;(null)
+2024-12-04 09:30:50;3;DUVEL;IOE5003;I/O device not responding.
+;(null)
+2024-12-04 09:30:51;3;DUVEL;CFG6002;Invalid configuration format.
+;(null)
+2024-12-04 09:30:51;3;DUVEL;GEN0004;Required field is missing.
+;(null)
+2024-12-04 09:30:51;3;DUVEL;IOE5004;Failed to read from device.
+;(null)
+2024-12-04 09:30:52;3;DUVEL;CFG6003;Configuration key not found.
+;(null)
+2024-12-04 09:30:52;3;DUVEL;GEN0005;Action timed out.
+;(null)
+2024-12-04 09:30:52;3;DUVEL;IOE5005;Failed to write to device.
+;(null)
+2024-12-04 09:30:53;3;DUVEL;CFG6004;Failed to load configuration.
+;(null)
+2024-12-04 09:30:53;3;DUVEL;AUT1001;Invalid username or password.
+;(null)
+2024-12-04 09:30:53;3;DUVEL;CFG6001;Configuration file is missing.
+;(null)
+2024-12-04 09:30:54;3;DUVEL;CFG6005;Configuration setting is deprecated.
+;(null)
+2024-12-04 09:30:54;3;DUVEL;AUT1002;User account is locked.
+;(null)
+2024-12-04 09:30:54;3;DUVEL;CFG6002;Invalid configuration format.
+;(null)
+2024-12-04 09:30:55;3;DUVEL;SYN7001;Syntax error in command.
+;(null)
+2024-12-04 09:30:55;3;DUVEL;AUT1003;Token has expired.
+;(null)
+2024-12-04 09:30:55;3;DUVEL;CFG6003;Configuration key not found.
+;(null)
+2024-12-04 09:30:56;3;DUVEL;SYN7002;Unexpected token encountered.
+;(null)
+2024-12-04 09:30:56;3;DUVEL;AUT1004;Insufficient permissions.
+;(null)
+2024-12-04 09:30:56;3;DUVEL;CFG6004;Failed to load configuration.
+;(null)
+2024-12-04 09:30:57;3;DUVEL;SYN7003;Missing semicolon.
+;(null)
+2024-12-04 09:30:57;3;DUVEL;AUT1005;Failed to authenticate user.
+;(null)
+2024-12-04 09:30:57;3;DUVEL;CFG6005;Configuration setting is deprecated.
+;(null)
+2024-12-04 09:30:58;3;DUVEL;SYN7004;Unmatched parentheses.
+;(null)
+2024-12-04 09:30:58;3;DUVEL;DBE2001;Database connection failed.
+;(null)
+2024-12-04 09:30:58;3;DUVEL;SYN7001;Syntax error in command.
+;(null)
+2024-12-04 09:30:59;3;DUVEL;SYN7005;Invalid character in input.
+;(null)
+2024-12-04 09:30:59;3;DUVEL;DBE2002;Data retrieval error.
+;(null)
+2024-12-04 09:30:59;3;DUVEL;SYN7002;Unexpected token encountered.
+;(null)
+2024-12-04 09:31:00;3;DUVEL;PER8001;Permission denied.
+;(null)
+2024-12-04 09:31:00;3;DUVEL;DBE2003;Data insertion error.
+;(null)
+2024-12-04 09:31:00;3;DUVEL;SYN7003;Missing semicolon.
+;(null)
+2024-12-04 09:31:01;3;DUVEL;PER8002;Read-only file system.
+;(null)
+2024-12-04 09:31:01;3;DUVEL;DBE2004;Data update error.
+;(null)
+2024-12-04 09:31:01;3;DUVEL;SYN7004;Unmatched parentheses.
+;(null)
+2024-12-04 09:31:02;3;DUVEL;PER8003;Insufficient user privileges.
+;(null)
+2024-12-04 09:31:02;3;DUVEL;DBE2005;Data deletion error.
+;(null)
+2024-12-04 09:31:02;3;DUVEL;SYN7005;Invalid character in input.
+;(null)
+2024-12-04 09:31:03;3;DUVEL;PER8004;Admin access required.
+;(null)
+2024-12-04 09:31:03;3;DUVEL;NET3001;Network connection lost.
+;(null)
+2024-12-04 09:31:03;3;DUVEL;PER8001;Permission denied.
+;(null)
+2024-12-04 09:31:04;3;DUVEL;PER8005;Operation restricted by policy.
+;(null)
+2024-12-04 09:31:04;3;DUVEL;NET3002;Unable to resolve hostname.
+;(null)
+2024-12-04 09:31:04;3;DUVEL;PER8002;Read-only file system.
+;(null)
+2024-12-04 09:31:05;3;DUVEL;RES9001;Insufficient memory available.
+;(null)
+2024-12-04 09:31:05;3;DUVEL;NET3003;Timeout while connecting to server.
+;(null)
+2024-12-04 09:31:05;3;DUVEL;PER8003;Insufficient user privileges.
+;(null)
+2024-12-04 09:31:06;3;DUVEL;RES9002;Resource limit exceeded.
+;(null)
+2024-12-04 09:31:06;3;DUVEL;NET3004;Network protocol mismatch.
+;(null)
+2024-12-04 09:31:06;3;DUVEL;PER8004;Admin access required.
+;(null)
+2024-12-04 09:31:07;3;DUVEL;RES9003;CPU quota reached.
+;(null)
+2024-12-04 09:31:07;3;DUVEL;NET3005;Insufficient bandwidth.
+;(null)
+2024-12-04 09:31:07;3;DUVEL;PER8005;Operation restricted by policy.
+;(null)
+2024-12-04 09:31:08;3;DUVEL;RES9004;Too many open files.
+;(null)
+2024-12-04 09:31:08;3;DUVEL;FSE4001;File not found.
+;(null)
+2024-12-04 09:31:08;3;DUVEL;RES9001;Insufficient memory available.
+;(null)
+2024-12-04 09:31:09;3;DUVEL;RES9005;Resource is locked by another process.
+;(null)
+2024-12-04 09:31:09;3;DUVEL;FSE4002;Unable to read file.
+;(null)
+2024-12-04 09:31:09;3;DUVEL;RES9002;Resource limit exceeded.
+;(null)
+2024-12-04 09:31:10;3;DUVEL;MEA0027;Incorrect measurement
+;(null)
+2024-12-04 09:31:10;3;DUVEL;FSE4003;Unable to write to file.
+;(null)
+2024-12-04 09:31:10;3;DUVEL;RES9003;CPU quota reached.
+;(null)
+2024-12-04 09:31:11;3;DUVEL;ABC0011;This is a test
+;(null)
+2024-12-04 09:31:11;3;DUVEL;FSE4004;Disk space is full.
+;(null)
+2024-12-04 09:31:11;3;DUVEL;RES9004;Too many open files.
+;(null)
+2024-12-04 09:31:12;3;DUVEL;DIV0001;Division by 0 error
+;(null)
+2024-12-04 09:31:12;3;DUVEL;FSE4005;File path is invalid.
+;(null)
+2024-12-04 09:31:12;3;DUVEL;RES9005;Resource is locked by another process.
+;(null)
+2024-12-04 09:31:13;3;DUVEL;MEM0001;Can not allocatie memory
+;(null)
+2024-12-04 09:31:13;3;DUVEL;IOE5001;Input buffer overflow.
+;(null)
+2024-12-04 09:31:13;3;DUVEL;MEA0027;Incorrect measurement
+;(null)
+2024-12-04 09:31:14;3;DUVEL;FSY0001;Could not open the file TextFile.txt for reading
+;TextFile.txt
+2024-12-04 09:31:14;3;DUVEL;IOE5002;Output buffer overflow.
+;`/
+2024-12-04 09:31:14;3;DUVEL;ABC0011;This is a test
+;
+2024-12-04 09:31:15;3;DUVEL;FSY0002;Could not open the file TextFile.txt for writing
+;TextFile.txt
+2024-12-04 09:31:15;3;DUVEL;IOE5003;I/O device not responding.
+;p+
+2024-12-04 09:31:15;3;DUVEL;DIV0001;Division by 0 error
+;p+
+2024-12-04 09:31:16;3;DUVEL;FSY0003;Could not open the file TextFile.txt for appending
+;TextFile.txt
+2024-12-04 09:31:16;3;DUVEL;IOE5004;Failed to read from device.
+;
+2024-12-04 09:31:16;3;DUVEL;MEM0001;Can not allocatie memory
+;
+2024-12-04 09:31:17;3;DUVEL;FSY0004;Could not open the file TextFile.txt
+;TextFile.txt
+2024-12-04 09:31:17;3;DUVEL;IOE5005;Failed to write to device.
+;
+2024-12-04 09:31:17;3;DUVEL;FSY0001;Could not open the file TextFile.txt for reading
+;TextFile.txt
+2024-12-04 09:31:18;3;DUVEL;FSY0005;Could not write to the file TextFile.txt
+;TextFile.txt
+2024-12-04 09:31:18;3;DUVEL;CFG6001;Configuration file is missing.
+;
+2024-12-04 09:31:18;3;DUVEL;FSY0002;Could not open the file TextFile.txt for writing
+;TextFile.txt
+2024-12-04 09:31:19;3;DUVEL;USR0001;User Frank Demonie has no access
+;Frank Demonie
+2024-12-04 09:31:19;3;DUVEL;CFG6002;Invalid configuration format.
+;†/
+2024-12-04 09:31:19;3;DUVEL;FSY0003;Could not open the file TextFile.txt for appending
+;TextFile.txt
+2024-12-04 09:31:20;3;DUVEL;CFG6003;Configuration key not found.
+;/
+2024-12-04 09:31:20;3;DUVEL;FSY0004;Could not open the file TextFile.txt
+;TextFile.txt
+2024-12-04 09:31:21;3;DUVEL;CFG6004;Failed to load configuration.
+;p+
+2024-12-04 09:31:21;3;DUVEL;FSY0005;Could not write to the file TextFile.txt
+;TextFile.txt
+2024-12-04 09:31:22;3;DUVEL;CFG6005;Configuration setting is deprecated.
+;¿,
+2024-12-04 09:31:22;3;DUVEL;USR0001;User Frank Demonie has no access
+;Frank Demonie
+2024-12-04 09:31:23;3;DUVEL;SYN7001;Syntax error in command.
+;ê
+2024-12-04 09:31:24;3;DUVEL;SYN7002;Unexpected token encountered.
+; $
+2024-12-04 09:31:25;3;DUVEL;SYN7003;Missing semicolon.
+;x+
+2024-12-04 09:31:26;3;DUVEL;SYN7004;Unmatched parentheses.
+;

@@ -9,7 +9,7 @@
 #define SUB_TOPIC   "vizo/ERROR_IN"
 #define PUB_TOPIC   "vizo/ERROR_SEND"
 #define QOS         1
-#define TIMEOUT     500L
+#define TIMEOUT     200L
 
 #define ERR_CODE_LEN    8
 #define ERR_TEXT_LEN    300
